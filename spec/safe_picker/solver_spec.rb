@@ -41,7 +41,11 @@ module SafePicker
           @safe.add_restricted_state(*state)
         end
 
-        expect(Solver.new.solve(@safe)).to_not be false
+        solution = Solver.new.solve(@safe)
+        expect(solution).to_not be false
+        restricted_states.each do |state|
+          expect(solution).to_not include state
+        end
       end
 
       it "fails if there's no valid moves" do
@@ -59,7 +63,9 @@ module SafePicker
         safe.opened_state = [1, 1, 1, 1, 1, 1]
         safe.add_restricted_state(1, 1, 1, 1, 1, 0)
 
-        expect(Solver.new.solve(safe)).to_not be false
+        solution = Solver.new.solve(safe)
+        expect(solution).to_not be false
+        expect(solution).to_not include([1, 1, 1, 1, 1, 0])
       end
 
       it "Works with a smaller safe" do
@@ -67,7 +73,9 @@ module SafePicker
         safe.opened_state = [2]
         safe.add_restricted_state(1)
 
-        expect(Solver.new.solve(safe)).to_not be false
+        solution = Solver.new.solve(safe)
+        expect(solution).to_not be false
+        expect(solution).to_not include([1])
       end
     end
   end
