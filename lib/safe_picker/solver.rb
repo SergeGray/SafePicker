@@ -11,7 +11,7 @@ module SafePicker
     def solve(path = [@safe.state])
       current_state = @safe.state
       current_path = path
-      @safe.add_restricted_state(*current_state)
+      @safe.restricted_states << current_state
 
       prioritized_actions.each do |dial, clockwise|
         @safe.state = current_state.clone

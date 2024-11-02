@@ -31,7 +31,7 @@ module SafePicker
       end
 
       it "does not rotate to a restricted state" do
-        @safe.add_restricted_state(1, 0, 0)
+        @safe.restricted_states << [1, 0, 0]
         @safe.rotate(0)
         expect(@safe.state).to eq([0, 0, 0])
       end
