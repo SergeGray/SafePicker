@@ -11,7 +11,7 @@ module SafePicker
 
       it "returns solution to safe" do
         @safe.opened_state = [1, 1, 1]
-        expect(Solver.new.solve(@safe)).to eq(
+        expect(Solver.new(@safe).solve).to eq(
           [[0, 0, 0], [1, 0, 0,], [1, 1, 0], [1, 1, 1]]
         )
       end
@@ -19,7 +19,7 @@ module SafePicker
       it "does not use restricted states" do
         @safe.opened_state = [1, 1, 1]
         @safe.add_restricted_state(1, 0, 0)
-        expect(Solver.new.solve(@safe)).to eq(
+        expect(Solver.new(@safe).solve).to eq(
           [[0, 0, 0], [0, 1, 0,], [1, 1, 0], [1, 1, 1]]
         )
       end
@@ -31,7 +31,7 @@ module SafePicker
           @safe.add_restricted_state(*state)
         end
 
-        expect(Solver.new.solve(@safe)).to include([3, 0, 0])
+        expect(Solver.new(@safe).solve).to include([3, 0, 0])
       end
       
       it "doesn't fail if there's no valid moves on one branch" do
@@ -41,7 +41,7 @@ module SafePicker
           @safe.add_restricted_state(*state)
         end
 
-        solution = Solver.new.solve(@safe)
+        solution = Solver.new(@safe).solve
         expect(solution).to_not be false
         restricted_states.each do |state|
           expect(solution).to_not include state
@@ -55,7 +55,7 @@ module SafePicker
           @safe.add_restricted_state(*state)
         end
 
-        expect(Solver.new.solve(@safe)).to be false
+        expect(Solver.new(@safe).solve).to be false
       end
 
       it "Works with a larger safe" do
@@ -63,7 +63,7 @@ module SafePicker
         safe.opened_state = [1, 1, 1, 1, 1, 1]
         safe.add_restricted_state(1, 1, 1, 1, 1, 0)
 
-        solution = Solver.new.solve(safe)
+        solution = Solver.new(safe).solve
         expect(solution).to_not be false
         expect(solution).to_not include([1, 1, 1, 1, 1, 0])
       end
@@ -73,7 +73,7 @@ module SafePicker
         safe.opened_state = [2]
         safe.add_restricted_state(1)
 
-        solution = Solver.new.solve(safe)
+        solution = Solver.new(safe).solve
         expect(solution).to_not be false
         expect(solution).to_not include([1])
       end
