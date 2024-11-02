@@ -13,7 +13,8 @@ module SafePicker
         safe.state = current_state.clone
         if safe.rotate(dial, clockwise:)
           new_path = current_path + [safe.state]
-          return safe.open? ? new_path : solve(safe, new_path)
+          new_path = solve(safe, new_path) unless safe.open?
+          return new_path if new_path
         end
       end
 
