@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ACTIONS = [0, 1, 2].product([true, false]).freeze
+ACTIONS = [0, 1, 2, 3, 4, 5].product([true, false]).freeze
 
 module SafePicker
   class Solver
@@ -24,7 +24,7 @@ module SafePicker
     private
 
     def prioritized_actions(safe)
-      ACTIONS.sort_by do |dial, clockwise|
+      ACTIONS.first(safe.lock_size * 2).sort_by do |dial, clockwise|
         priority =
           turns_to_reach(safe.state[dial], safe.opened_state[dial], clockwise)
 

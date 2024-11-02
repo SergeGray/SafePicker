@@ -53,6 +53,22 @@ module SafePicker
 
         expect(Solver.new.solve(@safe)).to be false
       end
+
+      it "Works with a larger safe" do
+        safe = Safe.new(0, 0, 0, 0, 0, 0)
+        safe.opened_state = [1, 1, 1, 1, 1, 1]
+        safe.add_restricted_state(1, 1, 1, 1, 1, 0)
+
+        expect(Solver.new.solve(safe)).to_not be false
+      end
+
+      it "Works with a smaller safe" do
+        safe = Safe.new(0)
+        safe.opened_state = [2]
+        safe.add_restricted_state(1)
+
+        expect(Solver.new.solve(safe)).to_not be false
+      end
     end
   end
 end

@@ -35,6 +35,18 @@ module SafePicker
         @safe.rotate(0)
         expect(@safe.state).to eq([0, 0, 0])
       end
+
+      it "works with a larger safe" do
+        safe = Safe.new(0, 0, 0, 0, 0, 0)
+        safe.rotate(5)
+        expect(safe.state).to eq([0, 0, 0, 0, 0, 1])
+      end
+
+      it "works with a smaller safe" do
+        safe = Safe.new(0)
+        safe.rotate(0)
+        expect(safe.state).to eq([1])
+      end
     end
 
     describe "#open?" do

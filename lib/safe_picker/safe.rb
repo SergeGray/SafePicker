@@ -6,13 +6,13 @@ module SafePicker
     attr_accessor :opened_state
     attr_reader :restricted_states
 
-    def initialize(x, y, z)
-      @state = [x, y, z]
+    def initialize(*state)
+      @state = state
       @restricted_states = []
     end
 
-    def add_restricted_state(x, y, z)
-      @restricted_states << [x, y, z]
+    def add_restricted_state(*state)
+      @restricted_states << state
     end
 
     def rotate(dial, clockwise: true)
@@ -25,6 +25,10 @@ module SafePicker
 
     def open?
       @state == @opened_state
+    end
+
+    def lock_size
+      @state.size
     end
 
     private
