@@ -2,9 +2,7 @@
 
 module SafePicker
   class Safe
-    attr_accessor :state
-    attr_accessor :opened_state
-    attr_accessor :restricted_states
+    attr_accessor :state, :opened_state, :restricted_states
 
     def initialize(state: [0, 0, 0], opened_state: [], restricted_states: [])
       @state = state

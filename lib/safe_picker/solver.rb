@@ -22,7 +22,7 @@ module SafePicker
         end
       end
 
-      return false
+      false
     end
 
     private

@@ -10,7 +10,7 @@ module SafePicker
         start = [1, 1, 1]
         opened = [2, 2, 2]
         solution = [[2, 1, 1], [2, 2, 1], [2, 2, 2]]
-        
+
         allow_any_instance_of(TerminalInterface).to receive(:get_current_state).and_return(start)
         allow_any_instance_of(TerminalInterface).to receive(:get_opened_state).and_return(opened)
         allow_any_instance_of(TerminalInterface).to receive(:get_restricted_states).and_return([])

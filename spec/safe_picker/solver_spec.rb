@@ -12,7 +12,7 @@ module SafePicker
       it "returns solution to safe" do
         @safe.opened_state = [1, 1, 1]
         expect(Solver.new(@safe).solve).to eq(
-          [[0, 0, 0], [1, 0, 0,], [1, 1, 0], [1, 1, 1]]
+          [[0, 0, 0], [1, 0, 0], [1, 1, 0], [1, 1, 1]]
         )
       end
 
@@ -20,10 +20,10 @@ module SafePicker
         @safe.opened_state = [1, 1, 1]
         @safe.restricted_states << [1, 0, 0]
         expect(Solver.new(@safe).solve).to eq(
-          [[0, 0, 0], [0, 1, 0,], [1, 1, 0], [1, 1, 1]]
+          [[0, 0, 0], [0, 1, 0], [1, 1, 0], [1, 1, 1]]
         )
       end
-      
+
       it "doubles back upon encountering a dead end" do
         @safe.opened_state = [2, 2, 2]
         restricted_states = [[2, 1, 0], [2, 0, 1], [2, 9, 0], [2, 0, 9]]
@@ -35,7 +35,7 @@ module SafePicker
           expect(solution).to_not include state
         end
       end
-      
+
       it "doesn't fail if there's no valid moves on one branch" do
         @safe.opened_state = [2, 2, 2]
         restricted_states = [[2, 1, 0], [2, 0, 1], [2, 9, 0], [2, 0, 9], [3, 0, 0]]

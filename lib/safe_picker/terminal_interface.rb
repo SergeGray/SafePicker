@@ -11,7 +11,6 @@ module SafePicker
     end
 
     def get_restricted_states
-      first = true
       puts("Keep entering restricted states, enter nothing to continue")
       restricted_states = []
       input = nil
