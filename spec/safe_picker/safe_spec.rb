@@ -5,7 +5,7 @@ require "spec_helper"
 module SafePicker
   describe Safe do
     before(:each) do
-      @safe = Safe.new(0, 0, 0)
+      @safe = Safe.new
     end
 
     describe "#rotate" do
@@ -37,13 +37,13 @@ module SafePicker
       end
 
       it "works with a larger safe" do
-        safe = Safe.new(0, 0, 0, 0, 0, 0)
+        safe = Safe.new(state: [0, 0, 0, 0, 0, 0])
         safe.rotate(5)
         expect(safe.state).to eq([0, 0, 0, 0, 0, 1])
       end
 
       it "works with a smaller safe" do
-        safe = Safe.new(0)
+        safe = Safe.new(state: [0])
         safe.rotate(0)
         expect(safe.state).to eq([1])
       end

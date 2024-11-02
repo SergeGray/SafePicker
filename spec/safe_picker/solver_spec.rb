@@ -6,7 +6,7 @@ module SafePicker
   describe Solver do
     describe "#solve" do
       before(:each) do
-        @safe = Safe.new(0, 0, 0)
+        @safe = Safe.new
       end
 
       it "returns solution to safe" do
@@ -57,7 +57,7 @@ module SafePicker
       end
 
       it "Works with a larger safe" do
-        safe = Safe.new(0, 0, 0, 0, 0, 0)
+        safe = Safe.new(state: [0, 0, 0, 0, 0, 0])
         safe.opened_state = [1, 1, 1, 1, 1, 1]
         safe.restricted_states << [1, 1, 1, 1, 1, 0]
 
@@ -67,7 +67,7 @@ module SafePicker
       end
 
       it "Works with a smaller safe" do
-        safe = Safe.new(0)
+        safe = Safe.new(state: [0])
         safe.opened_state = [2]
         safe.restricted_states << [1]
 
