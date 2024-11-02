@@ -9,24 +9,11 @@ module SafePicker
       current_path = path.empty? ? [current_state] : path
       safe.add_restricted_state(*current_state)
 
-      prioritized_actions = ACTIONS.sort_by do |dial, clockwise|
-        priority = turns_to_reach(
-          current_state[dial],
-          safe.opened_state[dial],
-          clockwise
-        )
-
-        priority.zero? ? 10 : priority
-      end
-
-      prioritized_actions.each do |dial, clockwise|
+      prioritized_actions(safe).each do |dial, clockwise|
         safe.state = current_state.clone
         if safe.rotate(dial, clockwise:)
-          if safe.open?
-            return current_path + [safe.state]
-          else
-            return solve(safe, current_path + [safe.state])
-          end
+          new_path = current_path + [safe.state]
+          return safe.open? ? new_path : solve(safe, new_path)
         end
       end
 
@@ -34,6 +21,15 @@ module SafePicker
     end
 
     private
+
+    def prioritized_actions(safe)
+      ACTIONS.sort_by do |dial, clockwise|
+        priority =
+          turns_to_reach(safe.state[dial], safe.opened_state[dial], clockwise)
+
+        priority.zero? ? 10 : priority
+      end
+    end
 
     def turns_to_reach(from, to, clockwise)
       if (from <= to && clockwise) || (from >=to && !clockwise)
