@@ -37,7 +37,7 @@ module SafePicker
     end
 
     def turns_to_reach(from, to, clockwise)
-      if (from <= to && clockwise) || (from >=to && !clockwise)
+      if (from <= to && clockwise) || (from >= to && !clockwise)
         (to - from).abs
       else
         10 - (to - from).abs
